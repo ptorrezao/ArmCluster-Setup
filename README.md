@@ -25,6 +25,8 @@ This is just a list of what I did...
         -   The dtb for X96 Mini is the 
             `meson-gxl-s905x-khadas-vim.dtb` 
 - Set the Password, 
+- Change the hostname [instructions](https://www.cyberciti.biz/faq/ubuntu-change-hostname-command/)
+- Set a fixed IP - [instructions](https://linuxconfig.org/how-to-setup-a-static-ip-address-on-debian-linux)
 - The system should be operational 
     
 
