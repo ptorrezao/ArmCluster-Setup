@@ -58,3 +58,4 @@ This is just a list of what I did...
 - [x] Create the docker swarm
 - [x] Administrate docker swarm via Portainer
 - [ ] Migrate Current HomeAssistant Stack to Cluster 
+    - [![Build Status](https://travis-ci.org/ptorrezao/homeassistant.svg?branch=ARMCluster)](https://travis-ci.org/ptorrezao/homeassistant) 
