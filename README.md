@@ -28,7 +28,7 @@ This is just a list of what I did...
 - Change the hostname [instructions](https://www.cyberciti.biz/faq/ubuntu-change-hostname-command/)
 - Set a fixed IP - [instructions](https://linuxconfig.org/how-to-setup-a-static-ip-address-on-debian-linux)
 - The system should be operational 
-    
+- ```systemctl disable haveged.service```
 
 #### Docker 
 - Docker (Default installation)
@@ -51,3 +51,10 @@ This is just a list of what I did...
 - Access the Browser on the url
     - http://{IP}:9000
 - Follow the creation of the initial administrator user. 
+
+
+### TODO
+- [x] Build the setup
+- [x] Create the docker swarm
+- [x] Administrate docker swarm via Portainer
+- [] Migrate Current HomeAssistant Stack to Cluster 
