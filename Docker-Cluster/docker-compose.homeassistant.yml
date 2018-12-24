@@ -1,0 +1,83 @@
+
+version: '3.1'
+
+services:
+#HomeAssistant
+  homeassistant:
+    image: homeassistant/aarch64-homeassistant
+    restart: always
+    ports:
+      - "${HA_PORT}:8123"
+    volumes:
+      - ha_config:/config
+      - ssl_certificate:/ssl
+
+#DB
+  influxdb:
+    image: influxdb:latest
+    ports:
+     - "8083:8083"
+     - "8086:8086"
+     - "8090:8090"
+    environment:
+     - INFLUXDB_DATA_ENGINE=tsm1
+     - INFLUXDB_REPORTING_DISABLED=false
+    volumes:
+     - ha_influxdb:/var/lib/influxdb
+
+  grafana:
+    image: raymondmm/grafana
+    container_name: grafana
+    ports:
+     - "${GRAFANA_PORT}:3000"
+    environment:
+     - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
+    links:
+     - influxdb
+     - influxdb:database
+    volumes:
+     - ha_grafana:/var/lib/grafana
+     
+#Node Red
+  nodered:
+    image: ptorrezao/node-red-aarch64:latest
+    ports:
+      - "${NODERED_PORT}:1880"
+    volumes:
+      - node_red:/data
+      - ssl_certificate:/ssl
+#tasmoadmin      
+  tasmoadmin:
+    image: raymondmm/tasmoadmin
+    restart: always
+    deploy:
+      replicas: 1
+    ports:
+       - "${TASMOAADMIN_PORT}:80"
+    volumes:
+      - tasmoadmin:/data
+      
+#Samba Shares      
+  samba:
+    image: demaniak/samba-aarch64
+    restart: always
+    ports:
+      - "137:137/udp"
+      - "138:138/udp"
+      - "139:139/tcp"
+      - "445:445/tcp"
+    volumes:
+      - ha_config:/config
+      - ha_influxdb:/influxdb
+      - node_red:/node_red
+      - ssl_certificate:/ssl
+      - tasmoadmin:/tasmoadmin
+    command: '-u "${SAMBA_USER};${SAMBA_PWD}" -s "TasmoAdmin;/tasmoadmin;yes;no;no;${SAMBA_USER}" -s "HomeAssistant;/config;yes;no;no;${SAMBA_USER}" -s "InfluxDB;/influxdb;yes;no;no;${SAMBA_USER}" -s "Certificates;/ssl;yes;no;no;${SAMBA_USER}" -s "NodeRed;/node_red;yes;no;no;${SAMBA_USER}" -p'
+    
+volumes:
+  ha_config:
+  ha_influxdb:
+  ha_grafana:
+  node_red:
+  ssl_certificate:
+  tasmoadmin:
