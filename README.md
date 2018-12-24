@@ -57,6 +57,7 @@ This is just a list of what I did...
 - [x] Build the setup
 - [x] Create the docker swarm
 - [x] Administrate docker swarm via Portainer
+- [ ] Docker Persistant Volumes across swarm
 - [ ] Migrate Current HomeAssistant Stack to Cluster [![Build Status](https://travis-ci.org/ptorrezao/homeassistant.svg?branch=ARMCluster)](https://travis-ci.org/ptorrezao/homeassistant) 
     - [ ] Review Current configurations
     - [x] Change for Influx DB
