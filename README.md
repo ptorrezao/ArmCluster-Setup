@@ -63,4 +63,5 @@ This is just a list of what I did...
     - [x] Change for Influx DB
     - [ ] Migrate Devices
     - [ ] Migrate MQTT 
+    - [ ] Migrate Node-Red Flows
     - [ ] Rewired portforwarding
