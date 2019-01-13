@@ -1,4 +1,6 @@
 # Arm Cluster
+[Archived]
+Was just a concept, but its a working one :)
 
 ## Goal 
 Have a low budget docker cluster running on Arm 
