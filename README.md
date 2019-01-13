@@ -13,8 +13,9 @@ This is just a list of what I did...
 ### Hardware
 | Qtd           | Item                                                          | Price (aprox)  |
 | ------------- |:--------------------------------------------------------------| --------------:|
-| 1             | [X96 Mini TV Box 2GB RAM + 16GB ROM](https://bit.ly/2Gz0gVq)  | 29.30€         |
-| 1             | [Class 10 Micro SDCard](https://bit.ly/2Rexsp7)               | 4.92€          |
+| 3             | [X96 Mini TV Box 2GB RAM + 16GB ROM](https://bit.ly/2Gz0gVq)  | 29.30€         |
+| 3             | [Class 10 Micro SDCard](https://bit.ly/2Rexsp7)               | 4.92€          |
+| 1             | 8 Port Switch 10/100                                          | Repurposed     |
 
 ### Instructions
 
@@ -58,10 +59,10 @@ This is just a list of what I did...
 - [x] Create the docker swarm
 - [x] Administrate docker swarm via Portainer
 - [ ] Docker Persistant Volumes across swarm
-- [ ] Migrate Current HomeAssistant Stack to Cluster [![Build Status](https://travis-ci.org/ptorrezao/homeassistant.svg?branch=ARMCluster)](https://travis-ci.org/ptorrezao/homeassistant) 
-    - [ ] Review Current configurations
+- [ ] Migrate Current HomeAssistant Stack to Cluster [![Build Status](https://travis-ci.org/ptorrezao/HomeAssistant.svg?branch=ARMCluster)](https://travis-ci.org/ptorrezao/HomeAssistant) 
+    - [X] Review Current configurations
     - [x] Change for Influx DB
-    - [ ] Migrate Devices
-    - [ ] Migrate MQTT 
-    - [ ] Migrate Node-Red Flows
-    - [ ] Rewired portforwarding
+    - [X] Migrate Devices
+    - [x] Migrate MQTT 
+    - [X] Migrate Node-Red Flows
+    - [X] Rewired portforwarding

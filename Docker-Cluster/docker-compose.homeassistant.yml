@@ -30,6 +30,8 @@ services:
     container_name: grafana
     ports:
      - "${GRAFANA_PORT}:3000"
+    deploy:
+      replicas: 0
     environment:
      - GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
     links:
@@ -37,12 +39,24 @@ services:
      - influxdb:database
     volumes:
      - ha_grafana:/var/lib/grafana
-     
+
+#MQTT
+  mqtt:
+    image: eclipse-mosquitto:latest
+    restart: always
+    ports:
+      - "${MQTT_PORT}:1883"
+      - "${MQTTWS_PORT}:9001"
+    volumes:
+      - mqtt_data:/mosquitto
+
 #Node Red
   nodered:
     image: ptorrezao/node-red-aarch64:latest
     ports:
       - "${NODERED_PORT}:1880"
+    deploy:
+      replicas: 0
     volumes:
       - node_red:/data
       - ssl_certificate:/ssl
@@ -51,16 +65,18 @@ services:
     image: raymondmm/tasmoadmin
     restart: always
     deploy:
-      replicas: 1
+      replicas: 0
     ports:
        - "${TASMOAADMIN_PORT}:80"
     volumes:
       - tasmoadmin:/data
-      
+
 #Samba Shares      
   samba:
     image: demaniak/samba-aarch64
     restart: always
+    deploy:
+      replicas: 0
     ports:
       - "137:137/udp"
       - "138:138/udp"
@@ -72,7 +88,8 @@ services:
       - node_red:/node_red
       - ssl_certificate:/ssl
       - tasmoadmin:/tasmoadmin
-    command: '-u "${SAMBA_USER};${SAMBA_PWD}" -s "TasmoAdmin;/tasmoadmin;yes;no;no;${SAMBA_USER}" -s "HomeAssistant;/config;yes;no;no;${SAMBA_USER}" -s "InfluxDB;/influxdb;yes;no;no;${SAMBA_USER}" -s "Certificates;/ssl;yes;no;no;${SAMBA_USER}" -s "NodeRed;/node_red;yes;no;no;${SAMBA_USER}" -p'
+      - mqtt_data:/mqtt_data
+    command: '-u "${SAMBA_USER};${SAMBA_PWD}" -s "MQTT;/mqtt_data;yes;no;no;${SAMBA_USER}" -s "TasmoAdmin;/tasmoadmin;yes;no;no;${SAMBA_USER}" -s "HomeAssistant;/config;yes;no;no;${SAMBA_USER}" -s "InfluxDB;/influxdb;yes;no;no;${SAMBA_USER}" -s "Certificates;/ssl;yes;no;no;${SAMBA_USER}" -s "NodeRed;/node_red;yes;no;no;${SAMBA_USER}" -p'
     
 volumes:
   ha_config:
@@ -81,3 +98,4 @@ volumes:
   node_red:
   ssl_certificate:
   tasmoadmin:
+  mqtt_data:
